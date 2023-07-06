@@ -1,1 +1,1 @@
-The program `bfi` is an interpreter which can edit&run&debug brainfuck programs.
+The program `bfi` is an interpreter which can edit&run&debug [Brainfuck](https://esolangs.org/wiki/Brainfuck) programs.
