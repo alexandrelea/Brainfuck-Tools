@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <string.h>
 #include <stdlib.h>
 void cpr(){
-    puts("bfi 0.1 Copyright (C) 2023 Water Horizontal Branch");
+    puts("bfi v0.2 Copyright (C) 2023 Water Horizontal Branch");
     puts("This program comes with ABSOLUTELY NO WARRANTY; for details please read warranty.");
     puts("This is free software, and you are welcome to redistribute it");
     puts("under certain conditions; please read copying for details.");
@@ -30,7 +30,8 @@ int homp(){
     puts("What do you want to do:");
     puts("1 - Edit program");
     puts("2 - Run program");
-    //puts("3 - Debug program");
+    puts("3 - Debug program");
+    puts("4 - Read informations about this program.");
     puts("0 - Quit");
     printf("Please select(0-3):");
     scanf("%d",&choice);
@@ -49,9 +50,9 @@ void edit(){
 }
 char getche(){
     char c;
-    system("stty -icanon");
+    system("stty -echo;stty -icanon");
     c=getchar();
-    system("stty icanon");
+    system("stty echo;stty icanon");
     return c; 
 }
 void run(){
@@ -110,6 +111,16 @@ void run(){
         }
     }
     puts("");
+    return;
+}
+void debug(){
+    puts("This can't be used in this program(version 0.2).");
+    return;
+}
+void inform(){
+    puts("bfi - BrainFuck Interpreter by Water Horizontal Branch version 0.2");
+    puts("Cell size:30000");
+    puts("Cell code:ASCII(unsigned char in C)");
 }
 int main(){
     cpr();
@@ -121,9 +132,12 @@ int main(){
         case 2:
             run();
             break;
-        //case 3:
-        //    debug();
-        //    break;
+        case 3:
+            debug();
+            break;
+        case 4:
+            inform();
+            break;
         case 0:
             return 0;
         default:
