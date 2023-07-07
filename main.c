@@ -20,10 +20,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <string.h>
 #include <stdlib.h>
 void cpr(){
-    puts("bfi v0.2 Copyright (C) 2023 Water Horizontal Branch");
+    puts("bfi (BrainFuck Interpreter) v0.3 Copyright (C) 2023 Water Horizontal Branch");
     puts("This program comes with ABSOLUTELY NO WARRANTY; for details please read warranty.");
     puts("This is free software, and you are welcome to redistribute it");
     puts("under certain conditions; please read copying for details.");
+}
+int max(int a,int b){
+    return a>=b?a:b;
+}
+int min(int a,int b){
+    return a<=b?a:b;
 }
 int homp(){
     int choice;
@@ -32,7 +38,7 @@ int homp(){
     puts("2 - Run program");
     puts("3 - Debug program");
     puts("4 - Read informations about this program.");
-    puts("0 - Quit");
+    puts("0 - Exit");
     printf("Please select(0-3):");
     scanf("%d",&choice);
     return choice;
@@ -45,7 +51,8 @@ void edit(){
     if(strlen(prog)!=0) puts(strcat(msg,prog));
     len=0;
     memset(prog,0,sizeof prog);
-    while(scanf("%c",&ch)!=0&&ch!='!') if(ch!=' '&&ch!='\t'&&ch!='\n'&&ch!='\r') prog[len++]=ch;
+    while(scanf("%c",&ch)!=0&&ch!='!')
+        if(ch=='['||ch==']'||ch=='<'||ch=='>'||ch=='+'||ch=='-'||ch=='.'||ch==',') prog[len++]=ch;
     return;
 }
 char getche(){
@@ -56,28 +63,25 @@ char getche(){
     return c; 
 }
 void run(){
-    puts("Check your program first.");
+    puts("Analyzing your program...");
     len=strlen(prog);
     int khop[100010]={},top,stck[100010]={},pt=0,prpt=0;
-    unsigned char mem[30010]={};
+    char mem[30010]={};
     for(int i=0;i<len;i++){
         if(prog[i]=='[') stck[++top]=i;
         if(prog[i]==']'){
             if(top==0){
-                printf("Your program has an extra parenthesis in the %d character.\nPlease fix it at once.\n",i);
-                edit();
+                for(int j=max(0,i-10);j<=min(len,i+10);j++) printf("%c",prog[j]);
+                printf("\n");
+                for(int j=max(0,i-10);j<i;j++) printf(" ");
+                printf("X\n");
+                printf("Extra parenthesis at %d.\n",i);
                 return;
             }else khop[stck[top]]=i,khop[i]=stck[top],top--;
         }
-        if(prog[i]!='['&&prog[i]!=']'&&prog[i]!='<'&&prog[i]!='>'&&prog[i]!='+'&&prog[i]!='-'&&prog[i]!='.'&&prog[i]!=','){
-            printf("Your program has an illegal character %c at %d.\nPlease fix it at once.\n",prog[i],i);
-            edit();
-            return;
-        }
     }
     if(top!=0){
-        printf("Your program is missing some parentheses at the end.\nPlease fix it at once.\n");
-        edit();
+        printf("Missing some parentheses at %d.\n",len);
         return;
     }
     getchar();
@@ -114,13 +118,24 @@ void run(){
     return;
 }
 void debug(){
-    puts("This can't be used in this program(version 0.2).");
+    puts("This can't be used in this program(version 0.3).");
     return;
 }
 void inform(){
-    puts("bfi - BrainFuck Interpreter by Water Horizontal Branch version 0.2");
+    puts("bfi - BrainFuck Interpreter by Water Horizontal Branch version 0.3");
     puts("Cell size:30000");
     puts("Cell code:ASCII(unsigned char in C)");
+    puts("");
+    puts("Brainfuck is a minimal computer language created by Urban Muller in 1993");
+    puts("> pointer plus one");
+    puts("< pointer minus one");
+    puts("+ pointer to byte plus one");
+    puts("- pointer to byte minus one");
+    puts(". Output pointer pointing unit content (ASCII code)");
+    puts(", input content to pointer pointing unit (ASCII code)");
+    puts("[ jumps back to the next instruction of the corresponding ] instruction if the cell value the pointer points to is zero");
+    puts("] jumps forward to the corresponding [ next instruction of instruction if the cell value that the pointer points to is not zero.");
+    puts("");
 }
 int main(){
     cpr();

@@ -1,5 +1,5 @@
 # Makefile - make the final program.
-# Copyright (C) <year>  <name of author>
+# Copyright (C) 2023 Water Horizontal Branch
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
