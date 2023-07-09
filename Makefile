@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 bfi: bfi.c
-	$(CC) bfi.c -o bfi 
+	$(CC) bfi.c -o bfi -std=c11
+bf2c: bf2c.c
+	$(CC) bf2c.c -o bf2c -std=c11
 .PHONY clean: 
-	rm bfi
+	rm bfi bf2c
