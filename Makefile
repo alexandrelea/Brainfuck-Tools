@@ -13,7 +13,7 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-bfi: main.c
-	$(CC) main.c -o bfi 
+bfi: bfi.c
+	$(CC) bfi.c -o bfi 
 .PHONY clean: 
 	rm bfi

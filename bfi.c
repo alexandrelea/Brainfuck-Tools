@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <string.h>
 #include <stdlib.h>
 char version[10]="0.4";
+//Copyright Information
 void cpr(){
     printf("bfi (BrainFuck Interpreter) v%s Copyright (C) 2023 Water Horizontal Branch\n",version);
     puts("This program comes with ABSOLUTELY NO WARRANTY; for details please read warranty.");
@@ -32,6 +33,7 @@ int max(int a,int b){
 int min(int a,int b){
     return a<=b?a:b;
 }
+//Home page of all the program.
 int homp(){
     int choice;
     puts("What do you want to do:");
@@ -41,7 +43,7 @@ int homp(){
     puts("4 - Debug program");
     puts("5 - Read informations about this program.");
     puts("0 - Exit");
-    printf("Please select(0-3):");
+    printf("Please select(0~5):");
     scanf("%d",&choice);
     return choice;
 }
@@ -253,11 +255,11 @@ void inform(){
     puts(", input content to pointer pointing unit (ASCII code)");
     puts("[ jumps back to the next instruction of the corresponding ] instruction if the cell value the pointer points to is zero");
     puts("] jumps forward to the corresponding [ next instruction of instruction if the cell value that the pointer points to is not zero.");
-    puts("");
 }
 int main(){
     cpr();
     while(1){
+        puts("");
         switch(homp()){
         case 1:
             edit();
