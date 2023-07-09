@@ -19,3 +19,7 @@ bf2c: bf2c.c
 	$(CC) bf2c.c -o bf2c -std=c11
 .PHONY clean: 
 	rm bfi bf2c
+.PHONY install: bfi bf2c
+	rm /usr/bin/bfi /usr/bin/bf2c
+	cp bfi /usr/bin/bfi
+	cp bf2c /usr/bin/bf2c
