@@ -1,3 +1,20 @@
+/*
+bf2c.c - the main program of bf2c.
+Copyright (C) 2023 Jasminoides(WHB).
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,7 +47,7 @@ int main(int argc,char *argv[]){
     //next, write preparation for c.
     FILE *bfck=fopen(argv[1],"r"),*c=fopen(argv[3],"w"),*bf=bfck;
     char ch,prog[1000010]={};
-    int top=0,len=0;
+    int top=0,len=0,cnt=0;
     do{
         ch=fgetc(bfck);
         if(feof(bfck)) break;
@@ -52,14 +69,32 @@ int main(int argc,char *argv[]){
     fprintf(c,"#include <stdio.h>\n#include <stdlib.h>\nchar getch(){char c;system(\"stty -icanon\");c=getchar();system(\"stty icanon\");return c;}int main(){unsigned char mem[30010]={};int pt=0;");
     for(int i=1;i<=len;i++){
         ch=prog[i];
-        if(ch=='<') fprintf(c,"pt=(pt-1+30000)%30000;");
-        if(ch=='>') fprintf(c,"pt=(pt+1)%30000;");
-        if(ch=='+') fprintf(c,"mem[pt]++;");
-        if(ch=='-') fprintf(c,"mem[pt]--;");
-        if(ch=='.') fprintf(c,"putchar(mem[pt]);fflush(stdout);");
-        if(ch==',') fprintf(c,"mem[pt]=getch();");
-        if(ch=='[') fprintf(c,"while(mem[pt]!=0){");
-        if(ch==']') fprintf(c,"}");
+        if(ch=='<'){
+            if(cnt!=0) fprintf(c,"mem[pt]+=(%d);",cnt),cnt=0;
+            fprintf(c,"pt=(pt-1+30000)%30000;");
+        }
+        if(ch=='>'){
+            if(cnt!=0) fprintf(c,"mem[pt]+=(%d);",cnt),cnt=0;
+            fprintf(c,"pt=(pt+1)%30000;");
+        }
+        if(ch=='+') cnt++;
+        if(ch=='-') cnt--;
+        if(ch=='.'){
+            if(cnt!=0) fprintf(c,"mem[pt]+=(%d);",cnt),cnt=0;
+            fprintf(c,"putchar(mem[pt]);fflush(stdout);");
+        }
+        if(ch==','){
+            if(cnt!=0) fprintf(c,"mem[pt]+=(%d);",cnt),cnt=0;
+            fprintf(c,"mem[pt]=getch();");
+        }
+        if(ch=='['){
+            if(cnt!=0) fprintf(c,"mem[pt]+=(%d);",cnt),cnt=0;
+            fprintf(c,"while(mem[pt]!=0){");
+        }
+        if(ch==']'){
+            if(cnt!=0)fprintf(c,"mem[pt]+=(%d);",cnt),cnt=0;
+            fprintf(c,"}");
+        }
     }
     fprintf(c,"return 0;}");
     return 0;
