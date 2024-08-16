@@ -1,6 +1,6 @@
 /*
 bfi.c - the main program of bfi.
-Copyright (C) 2023 Jasminoides(WHB).
+Copyright (C) 2023-2024 Alexandre Lea.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 char version[10]="0.4";
 //Copyright Information
 void cpr(){
-    printf("bfi (BrainFuck Interpreter) v%s Copyright (C) 2023 Water Horizontal Branch\n",version);
+    printf("bfi (BrainFuck Interpreter) v%s Copyright (C) 2023 Alexandre Lea\n",version);
     puts("This program comes with ABSOLUTELY NO WARRANTY; for details please read warranty.");
     puts("This is free software, and you are welcome to redistribute it");
     puts("under certain conditions; please read copying for details.");
